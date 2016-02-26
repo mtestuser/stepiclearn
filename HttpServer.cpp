@@ -69,7 +69,12 @@ string HttpServer::parseRequest(char *buffer) {
         out = s.substr(3, s.find("HTTP") - 3);
         size_t first = out.find_first_not_of(' ');
         size_t last = out.find_last_not_of(' ');
+		if(first == last){
+            out = "";
+        }
+		else{
         out = out.substr(first, (last-first+1));
+		}
     }
     return  out;
 }
