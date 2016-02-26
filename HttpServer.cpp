@@ -89,6 +89,12 @@ string HttpServer::genResponse(string &page) {
         exists = st.st_mode & S_IFDIR;
     }
 
+	for(auto iter = page.begin(); iter < page.end(); ++iter)
+    {
+        if(*iter == '?')
+            *iter = '\0';
+    }
+
     FILE *file = fopen(page.c_str(), "r");
 
     if(!exists && file != NULL){
