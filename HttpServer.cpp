@@ -2,6 +2,7 @@
 #include "HttpServer.h"
 #include <iostream>
 #include <thread>
+#include <sys/stat.h>
 
 using namespace std;
 
