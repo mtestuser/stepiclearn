@@ -81,9 +81,16 @@ string HttpServer::parseRequest(char *buffer) {
 
 //Формирование страницы html
 string HttpServer::genResponse(string &page) {
+    struct stat st;
+    bool exists = (stat(page.c_str(), &st) == 0);
+    if(exists)
+    {
+        exists = st.st_mode & S_IFDIR;
+    }
+
     FILE *file = fopen(page.c_str(), "r");
 
-    if(file){
+    if(!exists && file != NULL){
         fseek(file, 0, SEEK_END);
         long size = ftell(file);
         fseek(file,0,SEEK_SET);
