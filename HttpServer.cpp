@@ -74,7 +74,12 @@ string HttpServer::parseRequest(char *buffer) {
             out = "";
         }
 		else{
-        out = out.substr(first, (last-first+1));
+            out = out.substr(first, (last-first+1));
+            for(auto iter = out.begin(); iter < out.end(); ++iter)
+            {
+                if(*iter == '?')
+                    *iter = '\0';
+            }
 		}
     }
     return  out;
@@ -87,12 +92,6 @@ string HttpServer::genResponse(string &page) {
     if(exists)
     {
         exists = st.st_mode & S_IFDIR;
-    }
-
-	for(auto iter = page.begin(); iter < page.end(); ++iter)
-    {
-        if(*iter == '?')
-            *iter = '\0';
     }
 
     FILE *file = fopen(page.c_str(), "r");
