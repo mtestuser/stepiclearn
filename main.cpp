@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
 
     if(argc < 7)
     {
-        cout << "Low param count" << endl;
+        //cout << "Low param count" << endl;
         return 1;
     }
 
@@ -31,9 +31,9 @@ int main(int argc, char **argv) {
     //Ошибка создания потомка
     if(pid == -1)
     {
-        cout << "Start daemon error" << endl;
+        //cout << "Start daemon error" << endl;
     }
-    else if(!pid)
+    else if(pid)
     {
         //Сохраняем pid потомка
         pid_t child_pid = getpid();
@@ -48,10 +48,10 @@ int main(int argc, char **argv) {
         umask(0);
 
         // создаём новый сеанс
-        setsid();
+        //setsid();
 
         // переходим в корень диска
-        chdir("/");
+        //chdir("/");
 
         //Закрываем дескрипторы ввода/вывода
         close(STDIN_FILENO);
@@ -80,7 +80,7 @@ bool parseOptions(int argc, char **argv, struct Options *opt)
             case 'h':
                 if(inet_aton(argv[optind], &opt->host_ip) == 0)
                 {
-                    cout << "Wrong parametr -h: " << argv[optind] << endl;
+                    //cout << "Wrong parametr -h: " << argv[optind] << endl;
                     return ret;
                 }
                 break;
@@ -88,7 +88,7 @@ bool parseOptions(int argc, char **argv, struct Options *opt)
                 port = atoi(argv[optind]);
                 if(port > 65535 || port < 0)
                 {
-                    cout << "Wrong parametr -p: " << port << endl;
+                    //cout << "Wrong parametr -p: " << port << endl;
                     return ret;
                 }
                 else
@@ -99,13 +99,13 @@ bool parseOptions(int argc, char **argv, struct Options *opt)
             case 'd':
                 if(argv[optind] == NULL)
                 {
-                    cout << "Parametr -d can't be NULL" << endl;
+                    //cout << "Parametr -d can't be NULL" << endl;
                     return ret;
                 }
                 opt->dir = argv[optind];
                 break;
             case '?':
-                cout << "Parametr error." << endl;
+                //cout << "Parametr error." << endl;
                 return ret;
                 break;
         }
