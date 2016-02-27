@@ -11,21 +11,22 @@ void HttpServer::start() {
     list = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
     if(list < 0){
-        cout << "Server socket create error" << endl;
+        //cout << "Server socket create error" << endl;
         exit(1);
     }
 
     addr.sin_family = AF_INET;
-    cout << "port : " << opt_.port << endl;
+    //cout << "port : " << opt_.port << endl;
     addr.sin_port = htons(opt_.port);
-    addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+    //addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+    addr.sin_addr = opt_.host_ip;
 
     if(bind(list, (struct sockaddr *)&addr, sizeof(addr)) < 0){
-        cout << "Can't bind to the port " << opt_.port << endl;
+        //cout << "Can't bind to the port " << opt_.port << endl;
         exit(1);
     }
 
-    cout << "Server start" << endl;
+    //cout << "Server start" << endl;
     listen(list, SOMAXCONN);
 
     int cliSock = 0;
@@ -33,7 +34,7 @@ void HttpServer::start() {
     {
         cliSock = accept(list, NULL, NULL);
         if(cliSock < 0){
-            cout << "Accept error" << endl;
+            //cout << "Accept error" << endl;
             exit(1);
         }
 
