@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
     {
         //cout << "Start daemon error" << endl;
     }
-    else if(pid)
+    if(pid == 0)
     {
         //Сохраняем pid потомка
         pid_t child_pid = getpid();
@@ -45,22 +45,26 @@ int main(int argc, char **argv) {
         fwrite(str, 1, n, pid_file);
         fclose(pid_file);
 
-        umask(0);
+        //umask(0);
 
         // создаём новый сеанс
-        //setsid();
+        setsid();
 
         // переходим в корень диска
         //chdir("/");
 
         //Закрываем дескрипторы ввода/вывода
-        close(STDIN_FILENO);
-        close(STDOUT_FILENO);
-        close(STDERR_FILENO);
+        //close(STDIN_FILENO);
+        //close(STDOUT_FILENO);
+        //close(STDERR_FILENO);
 
         //Поднимаем http сервер
         HttpServer serv(opt);
         serv.start();
+    }
+    else
+    {
+        exit(0);
     }
 
     return 0;
